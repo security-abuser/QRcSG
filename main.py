@@ -2,12 +2,6 @@ import PySimpleGUI as sg
 import cv2
 import pyqrcode
 
-"""
-    Demo of using OpenCV to show your webcam in a GUI window.
-    This demo will run on tkinter, Qt, and Web(Remi).  The web version flickers at the moment though
-    To exit, right click and choose exit. If on Qt, you'll have to kill the program as there are no right click menus
-    in PySimpleGUIQt (yet).
-"""
 
 sg.theme('Black')
 
