@@ -15,16 +15,11 @@ layout = [
 ]
 
 # create the window and show it without the plot
-window = sg.Window('QRcSG', layout, location=(800, 400), )
-
-
-def pop_up(buf):
-    pop_up_layout = [[sg.Image(data=buf)], ]
-    sg.Window('QR', pop_up_layout).read()
-
+window = sg.Window('QRcSG', layout, location=(800, 400), icon='qr.ico',)
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
 camera = 1
+
 cap = cv2.VideoCapture(camera)
 
 while True:
@@ -40,21 +35,19 @@ while True:
             continue
 
         if event in 'GenQR':
-            qr = pyqrcode.create(values['-QR-'], version=5, encoding='utf-8')
+            qr = pyqrcode.create(values['-QR-'], encoding='utf-8')
             buffer = io.BytesIO()
             qr.png(buffer, scale=10)
-            pop_up(buffer.getvalue())
+            sg.Window(values['-QR-'], [[sg.Image(data=buffer.getvalue())], ], icon='qr.ico').read()
         ret, frame = cap.read()                             # Read image from capture device (camera)
         imgbytes=cv2.imencode('.png', frame)[1].tobytes()   # Convert the image to PNG Bytes
         window['-IMAGE-'].update(data=imgbytes)   # Change the Image Element to show the new image
         qr_code = pyzbar.decode(frame)
         if len(qr_code) != 0:
-            print(qr_code[0].data)
-            print(qr_code[0].data.decode('utf-8'))
             window['-QR-'].update(qr_code[0].data.decode())
         else:
             continue
-    except:
-        sg.popup("Camera not found")
+    except Exception as ex:
+        sg.popup(ex)
         break
 window.close()
