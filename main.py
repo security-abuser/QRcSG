@@ -4,7 +4,6 @@ import pyqrcode
 import io
 from pyzbar import pyzbar
 
-
 sg.theme('Black')
 
 # define the window layout
