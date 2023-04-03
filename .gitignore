@@ -2,3 +2,7 @@
 /qr.ico
 /.idea/
 .gitignore
+/build/
+/.idea/
+/dist/
+/main.spec

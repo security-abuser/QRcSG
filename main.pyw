@@ -6,20 +6,23 @@ from pyzbar import pyzbar
 
 sg.theme('Black')
 
+#Debug windows
+#sg.Print('Re-routing the stdout', do_not_reroute_stdout=False)
+
+camera = 1
+cap = cv2.VideoCapture(camera)
+
 # define the window layout
 layout = [
             [sg.Image(filename='', key='-IMAGE-')],
             [sg.Button('Change camera')],
-            [sg.InputText(key='-QR-'), sg.Button("GenQR")],
+            [sg.InputText(key='-QR-', password_char='*'), sg.Button("Copy"), sg.Button("GenQR")],
 ]
 
 # create the window and show it without the plot
-window = sg.Window('QRcSG', layout, location=(800, 400), icon='qr.ico',)
+window = sg.Window('QRcSG', layout, location=(800, 400), icon='qr.ico', element_justification='r')
 
 # ---===--- Event LOOP Read and display frames, operate the GUI --- #
-camera = 1
-
-cap = cv2.VideoCapture(camera)
 
 while True:
     try:
@@ -27,6 +30,9 @@ while True:
 
         if event == sg.WIN_CLOSED:
             break
+
+        if event in 'Copy':
+            sg.clipboard_set(values['-QR-'])
 
         if event in 'Change camera':
             camera = 1 if camera == 0 else 0
