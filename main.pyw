@@ -5,7 +5,7 @@ import io
 from pyzbar import pyzbar
 
 sg.theme('Black')
-
+#password_char='*'
 #Debug windows
 #sg.Print('Re-routing the stdout', do_not_reroute_stdout=False)
 
