@@ -1,7 +1,6 @@
 /venv/
 /qr.ico
 /.idea/
-.gitignore
 /build/
 /.idea/
 /dist/
